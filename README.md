@@ -4,14 +4,26 @@ Java 21 / Spring Boot API for creating, retrieving, listing, advancing, and canc
 
 ## Run
 
-Requires Java 21 and a running Docker daemon. The Maven wrapper is included.
+Requires Java 21 and Docker Desktop (or another running Docker daemon). The Maven wrapper is included.
+
+1. Start Docker Desktop and wait until its daemon is ready.
+2. From the project root, start PostgreSQL:
 
 ```bash
 ./scripts/start-db.sh
+```
+
+The script starts the database container and waits for it to be ready on port `15432`.
+
+3. Start the Spring Boot application in a terminal:
+
+```bash
 ./mvnw spring-boot:run
 ```
 
-Open [Swagger UI](http://localhost:8080/swagger-ui.html) to run requests. The OpenAPI JSON is at [`/v3/api-docs`](http://localhost:8080/v3/api-docs). The database uses PostgreSQL on local port 15432; `DB_URL`, `DB_USER`, and `DB_PASSWORD` can override the defaults.
+4. Once the application has started, open [Swagger UI](http://localhost:8080/swagger-ui.html). Expand `POST /orders`, choose **Try it out**, enter the sample request below, and choose **Execute**. Use the returned order ID with the get, list, status, and cancel endpoints. The OpenAPI JSON is at [`/v3/api-docs`](http://localhost:8080/v3/api-docs).
+
+The database uses PostgreSQL on local port `15432`; `DB_URL`, `DB_USER`, and `DB_PASSWORD` can override the defaults.
 
 Seeded products: `BOOK-001` (USD 12.50), `PEN-001` (USD 2.25), and `BAG-001` (USD 24.00). For example, create an order with:
 
@@ -40,4 +52,4 @@ More design and trade-offs are in [DESIGN.md](docs/DESIGN.md).
 
 ## Tests and AI use
 
-Run `./mvnw test`. Seven tests cover the API, status rules, scheduler service, and OpenAPI endpoints using H2; startup and core requests were also verified against PostgreSQL 17.
+Run `./mvnw test`. Seven tests cover the API, status rules, scheduler service, and OpenAPI endpoints using H2; startup and core requests were also verified against PostgreSQL 17. ChatGPT/Codex assisted with design, implementation, and review. Issues found and corrected included a Flyway dependency mismatch, Mockito test-agent setup, and brittle assertions against paginated API responses.
