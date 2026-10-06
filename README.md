@@ -50,6 +50,6 @@ Valid transitions: `PENDING → PROCESSING → SHIPPED → DELIVERED`, or `PENDI
 
 More design and trade-offs are in [DESIGN.md](docs/DESIGN.md).
 
-## Tests and AI use
+## Tests
 
-Run `./mvnw test`. Seven tests cover the API, status rules, scheduler service, and OpenAPI endpoints using H2; startup and core requests were also verified against PostgreSQL 17. ChatGPT/Codex assisted with design, implementation, and review. Issues found and corrected included a Flyway dependency mismatch, Mockito test-agent setup, and brittle assertions against paginated API responses.
+Run `./mvnw test`. Seven tests cover the API, status rules, scheduler service, and OpenAPI endpoints using H2; startup and core requests were also verified against PostgreSQL 17.
